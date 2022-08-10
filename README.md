@@ -28,8 +28,12 @@ Changing password for user test3.
 passwd: all authentication tokens updated successfully.
 [vagrant@nginx ~]$ 
 ```
-*Пользователя test1 делаю администратором*
+*Создаю группу admin и добавляю пользователя test1*
 ```
+[vagrant@nginx ~]$ sudo groupadd "admin"
+[vagrant@nginx ~]$ sudo usermod -G admin test1
+[vagrant@nginx ~]$ id test1
+uid=1001(test1) gid=1001(test1) groups=1001(test1),1004(admin)
 ```
 *1.1. Используя модуль pam_time.so*
 ```
@@ -41,4 +45,5 @@ passwd: all authentication tokens updated successfully.
 #
 ```
 *1.2. Используя модуль pam_exec.so*
+
 *1.3. Используя модуль pam_script.so*
