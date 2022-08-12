@@ -41,9 +41,19 @@ uid=1001(test1) gid=1001(test1) groups=1001(test1),1004(admin)
 ```
 ```
 #
-*;*;!wheel;AlWd
+*;*;!wheel;AlWd #я делал проверку в пятницу, поэтому у меня стояло *;*;!admin:AlFr
 #
 ```
+*Активируем модуль pam_time.so*
+```
+[vagrant@nginx ~]$ sudo vi /etc/pam.d/sshd 
+***
+ccount    required     pam_nologin.so
+account    required     pam_time.so
+***
+```
+*Проверка*
+
 *1.2. Используя модуль pam_exec.so*
 
 *1.3. Используя модуль pam_script.so*
