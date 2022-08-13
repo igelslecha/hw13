@@ -67,7 +67,36 @@ igels@LaptopAll:~/hw13$ ssh test3@192.168.56.150
 test3@192.168.56.150's password: 
 Connection closed by 192.168.56.150 port 22
 ```
-*К сожалению, для использования большого количества пользователей очень громозкое решение*
-*1.2. Используя модуль pam_exec.so*
+**К сожалению, для использования большого количества пользователей очень громозкое решение**
 
+*1.2. Используя модуль pam_exec.so*
+*Удаляю предыдущий модуль и активирую pam_exec.so со ссылкой на скрипт обработки входа*
+```
+***
+account    required     pam_nologin.so
+account    required     pam_exec.so    /usr/local/bin/test_login.sh
+account    include      password-auth
+***
+```
+*Прописываю скрипт, в процессе выполнения этого задания, осознал как важно, сначала написать правильный скрипт и только потом прописывать его на загрузку, так как может случится непредвиденная перезагрузка и как следствие полная потеря подключения к ВМ по ssh*
+```
+[vagrant@nginx ~]$ sudo vi /usr/local/bin/test_login.sh
+#!/bin/bash
+if [ `grep $PAM_USER /etc/group | grep 'admin'` ]; then
+  exit 0
+ else
+ if [ $(date +%a) = "Fri" or $(date +%a) = "Sat" ]; then
+  exit 0
+ else
+  exit 1
+ fi
+fi
+```
+for pkg in epel-release pam_script; do yum install -y $pkg; done
 *1.3. Используя модуль pam_script.so*
+*Устанавливаю*
+```
+[vagrant@nginx ~]$ sudo -i
+[root@nginx ~]# for pkg in epel-release pam_script; do yum install -y $pkg; done
+```
+
