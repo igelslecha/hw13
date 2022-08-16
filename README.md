@@ -137,3 +137,23 @@ account    required     pam_script.so   /usr/local/bin/test_login.sh
 account    include      password-auth
 ***
 ```
+*Проверка*
+```
+gels@LaptopAll:~/hw13$ ssh test1@192.168.56.150
+test1@192.168.56.150's password: 
+Last login: Mon Aug 15 17:00:53 2022 from 192.168.56.1
+[test1@nginx ~]$ exit
+logout
+Connection to 192.168.56.150 closed.
+igels@LaptopAll:~/hw13$ ssh test2@192.168.56.150
+test2@192.168.56.150's password: 
+/usr/local/bin/test_login.sh failed: exit code 1
+Connection closed by 192.168.56.150 port 22
+igels@LaptopAll:~/hw13$ ssh test3@192.168.56.150
+test3@192.168.56.150's password: 
+/usr/local/bin/test_login.sh failed: exit code 1
+Connection closed by 192.168.56.150 port 22
+```
+
+***Решение***
+**2. Дать конкретному пользователю права работать с докером и возможность рестартить докер сервис**
