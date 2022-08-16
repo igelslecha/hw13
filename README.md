@@ -121,11 +121,19 @@ Connection closed by 192.168.56.150 port 22
 ```
 [vagrant@nginx ~]$ sudo chmod ugo+x /usr/local/bin/test_login.sh
 ```
-for pkg in epel-release pam_script; do yum install -y $pkg; done
+
 *1.3. Используя модуль pam_script.so*
-*Устанавливаю*
+*Устанавливаю модуль*
 ```
 [vagrant@nginx ~]$ sudo -i
 [root@nginx ~]# for pkg in epel-release pam_script; do yum install -y $pkg; done
 ```
-
+*Прописываю в файле 
+```
+[vagrant@nginx ~]$ sudo vi /etc/pam.d/sshd 
+***
+account    required     pam_nologin.so
+account    required     pam_script.so   /usr/local/bin/test_login.sh
+account    include      password-auth
+***
+```
