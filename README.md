@@ -119,9 +119,6 @@ test3@192.168.56.150's password:
 /usr/local/bin/test_login.sh failed: exit code 1
 Connection closed by 192.168.56.150 port 22
 ```
-[vagrant@nginx ~]$ sudo chmod ugo+x /usr/local/bin/test_login.sh
-```
-
 *1.3. Используя модуль pam_script.so*
 *Устанавливаю модуль*
 ```
