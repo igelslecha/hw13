@@ -153,4 +153,74 @@ Connection closed by 192.168.56.150 port 22
 ```
 
 ***Решение***
+
 **2. Дать конкретному пользователю права работать с докером и возможность рестартить докер сервис**
+
+*Устанавливаю вспомогательную утилиту, репозиторий, докер и проверяю docker run hello-world*
+```
+[vagrant@nginx ~]$  sudo yum install -y yum-utils
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+ * base: centos-mirror.rbc.ru
+ * extras: mirror.corbina.net
+ * updates: mirror.corbina.net
+***
+yum-utils.noarch 0:1.1.31-54.el7_8                                            
+
+Complete!
+[vagrant@nginx ~]$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+adding repo from: https://download.docker.com/linux/centos/docker-ce.repo
+grabbing file https://download.docker.com/linux/centos/docker-ce.repo to /etc/yum.repos.d/docker-ce.repo
+repo saved to /etc/yum.repos.d/docker-ce.repo
+[vagrant@nginx ~]$  sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+***
+docker-ce-rootless-extras.x86_64 0:20.10.17-3.el7                             
+  docker-scan-plugin.x86_64 0:0.17.0-3.el7                                      
+  fuse-overlayfs.x86_64 0:0.7.2-6.el7_8                                         
+  fuse3-libs.x86_64 0:3.6.1-4.el7                                               
+  libcgroup.x86_64 0:0.41-21.el7                                                
+  libsemanage-python.x86_64 0:2.5-14.el7                                        
+  policycoreutils-python.x86_64 0:2.5-34.el7                                    
+  python-IPy.noarch 0:0.75-6.el7                                                
+  setools-libs.x86_64 0:3.3.8-4.el7                                             
+  slirp4netns.x86_64 0:0.4.3-4.el7_8                                            
+
+Complete!
+[vagrant@nginx ~]$ sudo systemctl start docker                  
+[vagrant@nginx ~]$ sudo docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+2db29710123e: Pull complete 
+Digest: sha256:7d246653d0511db2a6b2e0436cfd0e52ac8c066000264b3ce63331ac66dca625
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+```
+
+*
