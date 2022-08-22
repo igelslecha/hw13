@@ -217,10 +217,66 @@ To try something more ambitious, you can run an Ubuntu container with:
 
 Share images, automate workflows, and more with a free Docker ID:
  https://hub.docker.com/
-
+sudo docker run hello-world
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 
 ```
 
-*
+*2.1. Добавляю пользователя test1 в группу wheel*
+```
+[vagrant@nginx ~]$ sudo usermod -G wheel test1
+```
+*Проверяю*
+```
+[test1@nginx ~]$ docker run hello-world
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create": dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+[test1@nginx ~]$ id test1
+uid=1001(test1) gid=1001(test1) groups=1001(test1),10(wheel)
+[test1@nginx ~]$ sudo docker run hello-world
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for test1: 
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executa*ble that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+```
+*И проверка рестарта сервиса*
+```
+[test1@nginx ~]$ systemctl restart docker.service
+==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+Для управления системными службами и юнитами, необходимо пройти аутентификацию.
+Authenticating as: test1
+Password: 
+==== AUTHENTICATION COMPLETE ===
+[test1@nginx ~]$ 
+```
+*Не очень удобный способ, во-первых даёт права рута для пользователя, во-вторых дополнительно вводить sudo и пароль*
+
+*2.2. 
+
