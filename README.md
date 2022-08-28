@@ -278,5 +278,45 @@ Password:
 ```
 *Не очень удобный способ, во-первых даёт права рута для пользователя, во-вторых дополнительно вводить sudo и пароль*
 
-*2.2. 
+**2.2. Установить suid-бит. Установка данного бита позволит рабоать с docker так, будто он запущен от root. Способ имеет низкую гибкость, так как установка бита позволит любому пользователю выполнить команду**
+
+```
+[vagrant@nginx ~]$ sudo chmod u+s /usr/bin/docker
+[vagrant@nginx ~]$ ll /usr/bin/ | grep docker
+-rwsr-xr-x. 1 root root   60507248 Jun  6 23:06 docker
+-rwxr-xr-x. 1 root root     849104 Jun  6 23:04 docker-init
+-rwxr-xr-x. 1 root root    2990568 Jun  6 23:03 docker-proxy
+-rwxr-xr-x. 1 root root   96658176 Jun  6 23:04 dockerd
+-rwxr-xr-x. 1 root root      13348 Jun  6 22:59 dockerd-rootless-setuptool.sh
+-rwxr-xr-x. 1 root root       5150 Jun  6 22:59 dockerd-rootless.sh
+-rwxr-xr-x. 1 root root    7925248 Jun  6 23:10 rootlesskit-docker-proxy
+```
+*Проверка*
+```
+[test2@nginx ~]$ docker run hello-world
+WARNING: Error loading config file: /home/test2/.docker/config.json: open /home/test2/.docker/config.json: permission denied
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+```
+*проверка с перезапуском будет добавлена как только сделаю сделующее задание с докером*
 
