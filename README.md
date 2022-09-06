@@ -316,7 +316,19 @@ Share images, automate workflows, and more with a free Docker ID:
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
-
 ```
-*проверка с перезапуском будет добавлена как только сделаю сделующее задание с докером*
+*Перезагрузка сервиса через systemctl недоступна при такой организации доступа, но можно перезагрузить сам докер-контейнер*
+```
+test2@nginx ~]$ systemctl restart docker.service
+==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+Для управления системными службами и юнитами, необходимо пройти аутентификацию.
+Authenticating as: root
+Password: Failed to restart docker.service: Connection timed out
+See system logs and 'systemctl status docker.service' for details.
+[test2@nginx ~]$ polkit-agent-helper-1: pam_authenticate failed: Authentication failure
+[test2@nginx ~]$ docker restart nginx
+-bash: $'\320\262docker': command not found
+[test2@nginx ~]$ docker restart nginx
+nginx
+```
 
